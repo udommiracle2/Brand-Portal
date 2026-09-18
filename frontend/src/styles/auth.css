@@ -90,5 +90,12 @@
   }
   .auth-screen__form {
     width: 100%;
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 420px) {
+  .auth-screen__form {
+    padding: 24px 16px;
   }
 }

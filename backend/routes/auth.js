@@ -1,9 +1,12 @@
 const express = require("express");
+const path = require("path");
+const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { getDB } = require("../db");
 const { toObjectId } = require("../utils/objectId");
 const { requireAuth } = require("../middleware/auth");
+const { uploadDir } = require("../middleware/upload");
 
 const router = express.Router();
 
@@ -96,6 +99,38 @@ router.get("/me", requireAuth, async (req, res, next) => {
     if (!brand) return res.status(404).json({ error: "Brand not found." });
 
     res.json({ brand: publicBrand(brand) });
+  } catch (err) {
+    next(err);
+  }
+});
+
+function deleteUploadedFile(imgPath) {
+  if (!imgPath) return;
+  const filePath = path.join(uploadDir, path.basename(imgPath));
+  if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+}
+
+// Permanently deletes the signed-in brand's account, every product they
+// own (and its image files), and their logo file. Irreversible.
+router.delete("/me", requireAuth, async (req, res, next) => {
+  try {
+    const id = toObjectId(req.brandId);
+    if (!id) return res.status(404).json({ error: "Brand not found." });
+
+    const db = getDB();
+    const brand = await db.collection("brands").findOne({ _id: id });
+    if (!brand) return res.status(404).json({ error: "Brand not found." });
+
+    const products = await db.collection("products").find({ brandId: id }).toArray();
+    products.forEach((product) => {
+      (product.images || []).forEach(deleteUploadedFile);
+    });
+    deleteUploadedFile(brand.logo);
+
+    await db.collection("products").deleteMany({ brandId: id });
+    await db.collection("brands").deleteOne({ _id: id });
+
+    res.status(204).end();
   } catch (err) {
     next(err);
   }

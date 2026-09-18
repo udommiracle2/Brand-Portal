@@ -21,6 +21,13 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.sidebar__brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .sidebar__brand-name {
   font-family: var(--font-display);
   font-size: 20px;
@@ -31,6 +38,38 @@
   font-size: 12px;
   color: #a39e8f;
   margin-top: 2px;
+}
+
+/* Hamburger toggle — hidden on desktop, shown only below the sidebar breakpoint */
+.sidebar__menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius);
+  cursor: pointer;
+  padding: 0;
+}
+
+.sidebar__menu-toggle span {
+  display: block;
+  height: 2px;
+  width: 16px;
+  margin: 0 auto;
+  background: #e8e4da;
+  border-radius: 2px;
+}
+
+.sidebar__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 
 .sidebar__nav {
@@ -82,10 +121,74 @@
   margin-top: 6px;
 }
 
+.sidebar__delete-account {
+  display: block;
+  background: none;
+  border: none;
+  color: #c98d95;
+  cursor: pointer;
+  padding: 0;
+  font-size: 12.5px;
+  text-decoration: underline;
+  margin-top: 10px;
+}
+
+.sidebar__delete-account:hover {
+  color: #e3a7ae;
+}
+
+.sidebar__delete-error {
+  color: var(--rust);
+  font-size: 12.5px;
+  padding: 8px 20px 0;
+  margin: 0;
+}
+
+@media (max-width: 780px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
+  .sidebar__brand {
+    padding: 16px 18px;
+    border-bottom: none;
+  }
+
+  .sidebar__menu-toggle {
+    display: flex;
+  }
+
+  .sidebar__body {
+    display: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .sidebar__body--open {
+    display: flex;
+  }
+}
+
 .main {
   flex: 1;
   min-width: 0;
   padding: 36px 44px 60px;
+}
+
+@media (max-width: 780px) {
+  .main {
+    padding: 24px 20px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 18px 14px 32px;
+  }
+  .topbar h1 {
+    font-size: 22px;
+  }
 }
 
 .topbar {
@@ -157,6 +260,19 @@
   }
   .stat-block:nth-child(2) {
     border-right: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-row {
+    grid-template-columns: 1fr;
+  }
+  .stat-block {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .stat-block:last-child {
+    border-bottom: none;
   }
 }
 
@@ -529,4 +645,73 @@ table.data-table {
   object-fit: cover;
   border: 1px solid var(--line);
   background: var(--paper);
+}
+
+/* ---------- Modal / confirm dialog ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 27, 25, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 8vh 16px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.modal-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-header h2 {
+  font-size: 18px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--radius);
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--ink);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-body p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
 }

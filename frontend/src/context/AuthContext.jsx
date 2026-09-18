@@ -48,8 +48,14 @@ export function AuthProvider({ children }) {
     setBrand(null);
   }
 
+  async function deleteAccount() {
+    await client.delete("/auth/me");
+    localStorage.removeItem("bp_token");
+    setBrand(null);
+  }
+
   return (
-    <AuthContext.Provider value={{ brand, setBrand, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ brand, setBrand, loading, login, register, logout, deleteAccount }}>
       {children}
     </AuthContext.Provider>
   );
