@@ -1,0 +1,76 @@
+:root {
+  /* Color */
+  --ink: #1c1b19;
+  --ink-soft: #322f2a;
+  --paper: #faf8f4;
+  --panel: #ffffff;
+  --line: #ded8c9;
+  --brass: #a3762a;
+  --brass-deep: #7d5a1f;
+  --sage: #4b6455;
+  --rust: #7a2e3b;
+  --text-muted: #6f6a5f;
+
+  /* Type */
+  --font-display: "Fraunces", "Iowan Old Style", serif;
+  --font-ui: "Work Sans", "Segoe UI", sans-serif;
+
+  /* Layout */
+  --sidebar-w: 240px;
+  --radius: 3px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-ui);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+input,
+select,
+textarea {
+  font-family: var(--font-ui);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
