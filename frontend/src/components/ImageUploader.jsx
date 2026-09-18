@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { resolveMediaUrl } from "../api/client";
 
 // existingImages: array of URL strings already saved on the product
 // newFiles: array of File objects staged for upload
@@ -17,7 +18,7 @@ export default function ImageUploader({ existingImages, onRemoveExisting, newFil
       <div className="image-grid">
         {existingImages.map((src) => (
           <div className="image-tile" key={src}>
-            <img src={src} alt="Product" />
+            <img src={resolveMediaUrl(src)} alt="Product" />
             <button type="button" className="image-tile__remove" onClick={() => onRemoveExisting(src)} aria-label="Remove image">
               ×
             </button>

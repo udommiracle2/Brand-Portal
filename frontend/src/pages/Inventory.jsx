@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import AppLayout from "../components/AppLayout";
-import client, { apiErrorMessage } from "../api/client";
+import client, { apiErrorMessage, resolveMediaUrl } from "../api/client";
 
 export default function Inventory() {
   const [products, setProducts] = useState([]);
@@ -93,7 +93,7 @@ export default function Inventory() {
                         <div className="product-cell">
                           <img
                             className="product-thumb"
-                            src={p.images[0] || "https://placehold.co/88x88?text=%20"}
+                            src={resolveMediaUrl(p.images[0]) || "https://placehold.co/88x88?text=%20"}
                             alt={p.name}
                           />
                           <div className="product-name">{p.name}</div>

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AppLayout from "../components/AppLayout";
-import client, { apiErrorMessage } from "../api/client";
+import client, { apiErrorMessage, resolveMediaUrl } from "../api/client";
 
 function StatusBadge({ product }) {
   if (!product.available) return <span className="badge badge--unavailable">Unavailable</span>;
@@ -115,7 +115,7 @@ export default function Products() {
                       <div className="product-cell">
                         <img
                           className="product-thumb"
-                          src={p.images[0] || "https://placehold.co/88x88?text=%20"}
+                          src={resolveMediaUrl(p.images[0]) || "https://placehold.co/88x88?text=%20"}
                           alt={p.name}
                         />
                         <div>

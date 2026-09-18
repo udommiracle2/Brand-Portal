@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import AppLayout from "../components/AppLayout";
-import client, { apiErrorMessage } from "../api/client";
+import client, { apiErrorMessage, resolveMediaUrl } from "../api/client";
 import { useAuth } from "../context/AuthContext";
 
 export default function Profile() {
@@ -62,7 +62,7 @@ export default function Profile() {
     }
   }
 
-  const logoPreview = logoFile ? URL.createObjectURL(logoFile) : brand?.logo;
+  const logoPreview = logoFile ? URL.createObjectURL(logoFile) : resolveMediaUrl(brand?.logo);
 
   return (
     <AppLayout>
