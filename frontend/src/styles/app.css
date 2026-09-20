@@ -4,6 +4,13 @@
   min-height: 100vh;
 }
 
+@media (max-width: 780px) {
+  .app-shell {
+    flex-direction: column;
+    min-height: 0;
+  }
+}
+
 .sidebar {
   width: var(--sidebar-w);
   flex-shrink: 0;
